@@ -7,11 +7,22 @@
 <style>
 	main {
 		position: relative;
-		max-width: 56em;
+		max-width: 1200px;
 		background-color: white;
-		padding: 2em;
 		margin: 0 auto;
 		box-sizing: border-box;
+	}
+
+	@media (max-width:1999px) {
+		main {
+			padding: 0 32px;
+		}
+	}
+
+	@media (max-width:767px) {
+		main {
+			padding: 0 16px;
+		}
 	}
 </style>
 

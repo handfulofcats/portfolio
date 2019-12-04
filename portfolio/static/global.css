@@ -1,19 +1,59 @@
+html {font-size: 16px;}
+
 body {
 	margin: 0;
-	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-family: arimo, sans-serif;
 	font-size: 14px;
-	line-height: 1.5;
+	font-weight: 400;
+	line-height: 1.45;
 	color: #333;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0 0 0.5em 0;
+	margin: 2.75rem 0 1rem;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.15;
 }
 
 h1 {
-	font-size: 2em;
+margin-top: 0;
+font-size: 3.052em;
+}
+
+h2 {font-size: 2.441em;}
+
+h3 {font-size: 1.953em;}
+
+h4 {font-size: 1.563em;}
+
+h5 {font-size: 1.25em;}
+
+small, .text_small {font-size: 0.8em;}
+
+p {font-size:1em;}
+
+@media (max-width:1999px) {		
+	h1 {font-size: 2.441em;}
+	
+	h2 {font-size: 1.953em;}
+	
+	h3 {font-size: 1.563em;}
+	
+	h4 {font-size: 1.25em;}
+	
+	h5 {font-size: 1em;}
+}
+
+@media (max-width:767px) {	
+	h1 {font-size: 1.953em;}
+	
+	h2 {font-size: 1.563em;}
+	
+	h3 {font-size: 1.25em;}
+	
+	h4 {font-size: 1em;}
+
+	h5 {font-size: 1em;}
 }
 
 a {
