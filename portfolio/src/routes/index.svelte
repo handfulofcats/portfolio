@@ -1,4 +1,6 @@
-<style>
+<style lang="scss">
+	$thecolor: red;
+
 	h1, figure, p {
 		text-align: center;
 		margin: 0 auto;
@@ -23,6 +25,7 @@
 
 	p {
 		margin: 1em auto;
+		color: $thecolor;
 	}
 
 	@media (min-width: 480px) {
