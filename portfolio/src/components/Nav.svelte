@@ -1,60 +1,70 @@
 <script>
-	export let segment;
+  export let segment;
 </script>
 
 <style>
-	nav {
-		border-bottom: 1px solid rgba(255,62,0,0.1);
-		font-weight: 300;
-		padding: 0 1em;
-	}
+  nav {
+    border-bottom: 1px solid #e1e1e1;
+	font-weight: 300;
+  }
 
-	ul {
-		margin: 0;
-		padding: 0;
-	}
+  #homelink {
+	  font-family: archivo-black, sans-serif;
+	  font-size: 1.25em;
+	  letter-spacing: -0.2px;
+  }
 
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
-	}
+  #navcontainer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 80px;
+  }
 
-	li {
-		display: block;
-		float: left;
-	}
+  ul {
+	display: flex;
+    margin: 0;
+	padding: 0;
+	justify-content: space-between;
+	flex: 0 0 60%;
+  }
 
-	.selected {
-		position: relative;
-		display: inline-block;
-	}
+  li {
+    display: block;
+    float: left;
+  }
 
-	.selected::after {
-		position: absolute;
-		content: '';
-		width: calc(100% - 1em);
-		height: 2px;
-		background-color: rgb(255,62,0);
-		display: block;
-		bottom: -1px;
-	}
+  .selected {
+    position: relative;
+    display: inline-block;
+  }
 
-	a {
-		text-decoration: none;
-		padding: 1em 0.5em;
-		display: block;
-	}
+  #homelink {
+    text-decoration: none;
+  }
+
+  ul a {
+    text-decoration: none;
+    padding: 1em 0.5em;
+	  display: block;
+    color: #808080;
+    font-size: 14px;
+  }
 </style>
 
 <nav>
-	<ul>
-		<li><a class:selected='{segment === undefined}' href='.'>home</a></li>
-		<li><a class:selected='{segment === "about"}' href='about'>about</a></li>
+  <div id="navcontainer">
+    <div>
+      <a id="homelink" href=".">Andrés Canelones</a>
+    </div>
+    <ul>
+      <li><a class:selected={segment === 'digitalproduct'} href="./work/digitalproduct">01. Digital Product</a></li>
+      <li><a class:selected={segment === 'web'} href="./work/web">02. Web Development</a></li>
+      <li><a class:selected={segment === 'print'} href="./work/print">03. Printed Media</a></li>
+      <li><a class:selected={segment === 'contact'} href="./contact">04. Contact</a></li>
+    </ul>
+  </div>
 
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch class:selected='{segment === "blog"}' href='blog'>blog</a></li>
-	</ul>
 </nav>

@@ -1,49 +1,78 @@
 <style lang="scss">
-	$thecolor: red;
+ @import "./static/global.scss";
 
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+main {
+	position: relative;
+	max-width: 1200px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: stretch;
+	height: 100vh;
+}
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
+@media (max-width:1279px) {
+	main {
+		padding: 0 32px;
 	}
+}
 
-	figure {
-		margin: 0 0 1em 0;
+@media (max-width:767px) {
+	main {
+		padding: 0 16px;
 	}
+}
 
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
+main>div {
+	flex: 0 0 50%;
+}
 
-	p {
-		margin: 1em auto;
-		color: $thecolor;
-	}
+#homenav {
+	display: flex;
+	justify-content: center;
+}
 
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
+#homenav li {
+	font-family: lemonde-journal, serif;
+	font-weight: 600;
+	@include u4;
+	margin-bottom: 16px;
+}
+
+#homenav a {
+	text-decoration: none;
+}
+
+#thetitle {
+	font-family: archivo-black, sans-serif;
+	letter-spacing: -2px;
+	@include u4;
+	line-height: 1;
+}
+
+#titlesection span{
+	color: #666;
+}
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+  <title>Sapper project template</title>
 </svelte:head>
 
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<main id="homecontainer">
+  <div id="titlesection">
+    <h1 id="thetitle">Andrés Canelones</h1>
+	<span id="mydesc">UX designer & Web developer based in Panama City.</span>
+	<br>
+	<span><a href="tel:+507 6140.0564">+507 6140.0564</a> &nbsp;/&nbsp; <a href="mailto:hello@andrescanelones.me">hello@andrescanelones.me</a> &nbsp;/&nbsp; <a href="https://twitter.com/handfulofcats">Twitter</a> &nbsp;/&nbsp; <a>my resume</a></span>
+  </div>
+	<nav id="homenav">
+		<ul>
+			<li><a>01. Digital Product</a></li>
+			<li><a>02. Web Design</a></li>
+			<li><a>03. Printed Media</a></li>
+			<li><a href="/contact">04. Contact</a></li>
+		</ul>
+	</nav>
+</main>
