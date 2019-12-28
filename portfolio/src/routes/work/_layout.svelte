@@ -13,6 +13,8 @@
 
 	export let stories = []
 	export let segment;
+
+	let test = "this test";
 </script>
 
 <style>

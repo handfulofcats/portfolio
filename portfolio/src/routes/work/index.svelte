@@ -24,3 +24,5 @@
 		<li><a href='work/{story.full_slug}'>{story.name}</a></li>
 	{/each}
 </ul>
+
+<p>{test}</p>
