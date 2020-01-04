@@ -1,5 +1,17 @@
+<script context="module">
+	import client, { defaultRequestConfig as reqConfig } from '../../storyblokClient';
+
+	export async function preload(page, session) {
+		const response = await client.getAll('cdn/stories', reqConfig);
+
+	return { stories: response || [] }
+	}
+
+</script>
+
 <script>
-	let stories = [];
+	let stories = []
+	console.log(stories);
 </script>
 
 <style>
@@ -24,5 +36,3 @@
 		<li><a href='work/{story.full_slug}'>{story.name}</a></li>
 	{/each}
 </ul>
-
-<p>{test}</p>

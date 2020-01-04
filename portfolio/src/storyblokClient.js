@@ -5,7 +5,7 @@ const client = new StoryblokClient({
 })
 
 export const defaultRequestConfig = {
-    version: 'draft'
+    version: 'published'
 }
 
 export default client; 
