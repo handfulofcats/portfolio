@@ -13,7 +13,7 @@
 </script>
 
 <style lang="scss">
-@import "./static/variables.scss";
+@import "./static/global.scss";
 #pageheader {
   display: flex;
   align-items: center;
@@ -24,7 +24,8 @@
   flex: 1 1 60%;
   vertical-align: top;
   margin: 0;
-  margin-right: 32px;
+  margin-right: 32px; 
+  font-weight: 600;
 }
 
 #pageheader #line {

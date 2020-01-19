@@ -5,5 +5,53 @@ $bp-md: 1279px;
 
 // Colors
 $cool-gray: #808080;
+$vlight-gray: #cfcdcd;
 $line-gray: #9c9c9c;
 $pure-black: #000000;
+
+// font families
+$arimo: arimo, sans-serif;
+$lemonde: "lemonde-journal", serif;
+
+// font size mixins
+@mixin u5 {
+	font-size: 3.815em;
+
+	@media (max-width:$bp-md) {
+		font-size: 3.052em;
+	}
+	@media (max-width:$bp-sm) {
+		font-size: 2.441em;
+	}
+	@media (max-width:$bp-xs) {
+		font-size: 1.953em;
+	}
+}
+
+@mixin u4 {
+	font-size: 3.052em;
+
+	@media (max-width:$bp-md) {
+		font-size: 2.441em;
+	}
+	@media (max-width:$bp-sm) {
+		font-size: 1.953em;
+	}
+	@media (max-width:$bp-xs) {
+		font-size: 1.563em;
+	}
+}
+
+@mixin u3 {
+	font-size: 2.441em;
+
+	@media (max-width:$bp-md) {
+		font-size: 1.953em;
+	}
+	@media (max-width:$bp-sm) {
+		font-size: 1.563em;
+	}
+	@media (max-width:$bp-xs) {
+		font-size: 1.25em;
+	}
+}

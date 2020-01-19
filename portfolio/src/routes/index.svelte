@@ -46,6 +46,7 @@ main>div {
 
 #thetitle {
 	font-family: archivo-black, sans-serif;
+	font-size: 400;
 	letter-spacing: -2px;
 	@include u4;
 	line-height: 1;
@@ -69,7 +70,7 @@ main>div {
   </div>
 	<nav id="homenav">
 		<ul>
-			<li><a>01. Digital Product</a></li>
+			<li><a href="/work/digitalproduct">01. Digital Product</a></li>
 			<li><a>02. Web Design</a></li>
 			<li><a>03. Printed Media</a></li>
 			<li><a href="/contact">04. Contact</a></li>

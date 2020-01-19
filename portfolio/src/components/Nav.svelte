@@ -2,10 +2,15 @@
   export let segment;
 </script>
 
-<style>
+<style lang="scss">
+@import "./static/global.scss";
   nav {
-    border-bottom: 1px solid #e1e1e1;
-	font-weight: 300;
+    border-bottom: 1px solid $line-gray;
+    font-weight: 300;
+    position: fixed;
+    width: 100%;
+    background: #FFF;
+    z-index: 10;
   }
 
   #homelink {
@@ -52,6 +57,18 @@
     color: #808080;
     font-size: 14px;
   }
+
+  @media (max-width:1200px) {
+		#navcontainer {
+			padding: 0 32px;
+		}
+	}
+
+	@media (max-width:767px) {
+		#navcontainer {
+			padding: 0 16px;
+		}
+	}
 </style>
 
 <nav>

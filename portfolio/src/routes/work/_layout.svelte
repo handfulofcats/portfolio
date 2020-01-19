@@ -1,16 +1,28 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
+	import Footer from '../../components/Footer.svelte';
 	export let segment;
 </script>
 
 <style lang="scss">
 @import "./static/global.scss";
+	#wrapper {
+		height: 100vh;
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+	}
 	main {
 		position: relative;
 		max-width: 1200px;
+		width: 100%;
 		background-color: white;
-		margin: 64px auto;
+		margin: 176px auto 96px auto;
 		box-sizing: border-box;
+		flex: 1 0 auto;
+	}
+	Nav, Footer {
+		flex: 0 0 auto;
 	}
 
 	@media (max-width:1200px) {
@@ -25,7 +37,10 @@
 		}
 	}
 </style>
-<Nav {segment}/>
-<main>
-	<slot></slot>
-</main>
+<div id="wrapper">
+	<Nav {segment}/>
+	<main>
+		<slot></slot>
+	</main>
+	<Footer/>
+</div>
