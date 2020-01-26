@@ -12,6 +12,7 @@ $pure-black: #000000;
 // font families
 $arimo: arimo, sans-serif;
 $lemonde: "lemonde-journal", serif;
+$archivo: "archivo-black", sans-serif;
 
 // font size mixins
 @mixin u5 {
@@ -53,5 +54,16 @@ $lemonde: "lemonde-journal", serif;
 	}
 	@media (max-width:$bp-xs) {
 		font-size: 1.25em;
+	}
+}
+
+@mixin u2 {
+	font-size: 1.563em;
+
+	@media (max-width:$bp-md) {
+		font-size: 1.25em;
+	}
+	@media (max-width:$bp-sm) {
+		font-size: 1em;
 	}
 }

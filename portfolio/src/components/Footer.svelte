@@ -1,7 +1,7 @@
 <style lang="scss">
 @import "./static/global.scss";
   footer {
-    border-top: 1px solid $line-gray; 
+    border-top: 1px solid $vlight-gray; 
     font-weight: 300;
     padding: 32px 0;
     text-align: center;

@@ -1,10 +1,12 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
 	import Footer from '../../components/Footer.svelte';
+	import { displaymenu } from '../../stores.js';
+
 	export let segment;
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
 @import "./static/global.scss";
 	#wrapper {
 		height: 100vh;
@@ -12,12 +14,14 @@
 		flex-flow: column;
 		justify-content: space-between;
 	}
+	#wrapper.displaynav {
+		overflow:hidden;
+	}
 	main {
 		position: relative;
-		max-width: 1200px;
 		width: 100%;
 		background-color: white;
-		margin: 176px auto 96px auto;
+		/*margin: 176px auto 96px auto;*/
 		box-sizing: border-box;
 		flex: 1 0 auto;
 	}
@@ -37,7 +41,7 @@
 		}
 	}
 </style>
-<div id="wrapper">
+<div id="wrapper" class="{$displaymenu ? 'displaynav' : ''}">
 	<Nav {segment}/>
 	<main>
 		<slot></slot>
