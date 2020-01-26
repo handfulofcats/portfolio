@@ -34,6 +34,7 @@
   }
 
   #navcontainer {
+    max-width: 1700px;
     display: flex;
     box-sizing: border-box;
 		justify-content: space-between;
@@ -88,6 +89,47 @@
     height: 100vh;
   }
 
+  #toggle-nav {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #toggle-nav ul {
+    position: relative;
+    width: 100%;
+    height: 15px;
+  }
+
+  #toggle-nav .bun {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: $pure-black;
+    transition: transform 0.2s ease, bottom 0.2s ease, top 0.2s ease;
+  }
+  #toggle-nav #bun1 {
+    top: 0%;
+    transform: rotate(0deg) translateZ(0);
+    margin-bottom: 10px;
+  }
+
+  #toggle-nav #bun2 {
+    bottom: 0%;
+    transform: rotate(0deg) translateZ(0);  
+  }
+
+  .displaynav #toggle-nav #bun1 {
+    top: 50%;
+    transform: rotate(45deg) translateZ(0);
+  }
+  .displaynav #toggle-nav #bun2 {
+    bottom: 40%;
+    transform: rotate(-45deg) translateZ(0);
+  }
+
   @media (max-width:$bp-md) {
 		#navcontainer {
 			padding: 0 32px;
@@ -106,7 +148,13 @@
     <div>
       <a id="homelink" href=".">Andrés Canelones</a>
     </div>
-    <button on:click={toggleMenu}>menu</button>
+    <a on:click={toggleMenu} id="toggle-nav">
+      <ul class="buns">
+        <li class="bun" id="bun1"></li>
+        <li class="bun" id="bun2"></li>
+      </ul>
+      <!--buns-->
+    </a>
   </div>
   <div id="fullscreen-nav">
     <ul class="{$displaymenu ? 'onDisplay' : ''}">

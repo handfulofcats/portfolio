@@ -1,4 +1,4 @@
-<style lang="scss" global>
+<style lang="scss">
  @import "./static/global.scss";
 
 main {

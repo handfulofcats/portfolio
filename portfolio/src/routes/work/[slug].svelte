@@ -20,7 +20,7 @@
 
 #story-headerarea {
 	width: 100%;
-	padding-top: 152px;
+	padding-top: 72px;
 	box-sizing: border-box;
 	/* background: linear-gradient(180deg,#000 0%, #000 40%, rgba(255,255,255,1) 40%);*/
 }

@@ -21,7 +21,7 @@
 		position: relative;
 		width: 100%;
 		background-color: white;
-		/*margin: 176px auto 96px auto;*/
+		margin: 80px auto 96px auto;
 		box-sizing: border-box;
 		flex: 1 0 auto;
 	}
