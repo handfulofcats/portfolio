@@ -1,0 +1,21 @@
+@import 'variables.scss';
+
+#story-body>.markdown_text {
+    max-width: 700px;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+	font-family: poynter-oldstyle-text, serif;
+	font-size: 1.25em;
+	line-height: 2;
+}
+
+blockquote p {
+	color: $pure-black;
+	font-family: $lemonde;
+    @include u4;
+    line-height: 1.25;
+    font-weight: 700;
+}

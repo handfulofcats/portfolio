@@ -2,27 +2,38 @@
 	import client, { defaultRequestConfig as reqConfig } from '../../storyblokClient';
 	import marked from 'marked';
 	
+	import MarkdownText from '../../components/MarkdownText.svelte';
+    import ContentGrid from '../../components/ContentGrid.svelte';
+    import Image from '../../components/Image.svelte';
+
 	export async function preload (page, session) {
 		const { slug } = page.params;
 		const response = await client.get('cdn/stories/work/' + slug, reqConfig);
 		return {story: response.data.story || {} }
 	}
+
+	const components = {
+		"markdown_text" : MarkdownText,
+		"grid" : ContentGrid,
+		"Image" : Image
+	};
 </script>
 
 <script>
 	export let story = {};
 	export let tags = story.tag_list;
-	console.log(story);
+	//console.log(story);
 </script>
 
 <style lang="scss">
-@import "./static/global.scss";
+@import "./static/blogstyles.scss";
 
 #story-headerarea {
 	width: 100%;
 	padding-top: 72px;
 	box-sizing: border-box;
 	/* background: linear-gradient(180deg,#000 0%, #000 40%, rgba(255,255,255,1) 40%);*/
+	margin-bottom: 48px;
 }
 
 #header-content {
@@ -75,6 +86,11 @@
 	font-weight: 500;
 	letter-spacing: 1px;
 }
+
+#story-body {
+	width: 100%;
+	margin: 0 auto;
+}
 </style>
 
 <svelte:head>
@@ -96,5 +112,11 @@
 	</div>
 </div>
 <div id="story-body">
-{@html marked(story.content.body)}
+	{#each story.content.blocks as block}
+	<span class="{block.component}">
+		<svelte:component this={components[block.component]} content={block} />
+	</span>
+	{/each}
+
+	{@html marked(story.content.body)}
 </div>
