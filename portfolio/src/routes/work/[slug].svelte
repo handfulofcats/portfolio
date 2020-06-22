@@ -1,10 +1,16 @@
 <script context="module">
+	import { beforeUpdate, afterUpdate } from 'svelte';
+	import { stores } from '@sapper/app';
 	import client, { defaultRequestConfig as reqConfig } from '../../storyblokClient';
 	import marked from 'marked';
 	
 	import MarkdownText from '../../components/MarkdownText.svelte';
+	import ProblemBlock from '../../components/ProblemBlock.svelte';
     import ContentGrid from '../../components/ContentGrid.svelte';
-    import Image from '../../components/Image.svelte';
+	import Image from '../../components/Image.svelte';
+	import NextPost from '../../components/NextPost.svelte';
+
+
 
 	export async function preload (page, session) {
 		const { slug } = page.params;
@@ -15,14 +21,22 @@
 	const components = {
 		"markdown_text" : MarkdownText,
 		"grid" : ContentGrid,
-		"Image" : Image
+		"Image" : Image,
+		"problemblock": ProblemBlock
 	};
 </script>
 
 <script>
+	const { page } = stores();
+	let { slug } = $page.params;
+
+	afterUpdate(() => {
+		slug = $page.params.slug;
+	});
+
 	export let story = {};
 	export let tags = story.tag_list;
-	//console.log(story);
+	console.log(story);
 </script>
 
 <style lang="scss">
@@ -30,7 +44,7 @@
 
 #story-headerarea {
 	width: 100%;
-	padding-top: 72px;
+	padding-top: 152px;
 	box-sizing: border-box;
 	/* background: linear-gradient(180deg,#000 0%, #000 40%, rgba(255,255,255,1) 40%);*/
 	margin-bottom: 48px;
@@ -47,7 +61,7 @@
 }
 
 #story-title {
-	margin-bottom: 48px; 
+	margin-bottom: 80px; 
 }
 
 #story-tags li {
@@ -69,7 +83,7 @@
 
 #header-content h1 {
 	font-weight: 600;
-	color: $pure-black;
+	color: $almost-black;
 }
 
 #story-summary {
@@ -77,6 +91,33 @@
 	font-family:  aktiv-grotesk-extended, sans-serif;
 	font-weight: 300;
 	width: 85%;
+	color: $almost-black;
+}
+
+#story-whenwherewhat {
+	display: flex;
+	width: 100%;
+}
+
+#story-whenwherewhat>div {
+	margin-right: 24px;
+	flex: 0 1 25%;
+}
+
+#story-whenwherewhat h4 {
+	font-family:  aktiv-grotesk-extended, sans-serif;
+	font-weight: 400;
+	color: $dark-gray;
+	text-transform: uppercase;
+	margin-bottom: 0;
+}
+
+#story-whenwherewhat span {
+	font-family:  aktiv-grotesk, sans-serif;
+	font-weight: 400;
+	color: $pure-black;
+	font-size: 14px;
+	letter-spacing: 0.5px;
 }
 
 #story-client {
@@ -91,12 +132,35 @@
 	width: 100%;
 	margin: 0 auto;
 }
+
+.grid {
+	margin: 48px 0;
+	padding: 48px 0;
+}
+
+.gridContainer {
+    display:flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+	margin: 0 auto;
+}
+.gridColumn {
+    display:flex;
+    flex: 1 1 47%;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+}
+.gridColumn:first-child {
+    margin-right: 24px;
+}
+
 </style>
 
 <svelte:head>
 	<title>{story.name}</title>
 </svelte:head>
-<div id="story-headerarea">
+<div id="story-headerarea" style="{(story.content.color == "") ? "" : "background: linear-gradient(180deg, " + story.content.color.color + " 0%, " + story.content.color.color + " 60%, rgba(255,255,255,1) 60%);"}">
 	<div id="header-content">
 		<div id="story-title">
 			<ul id="story-tags">
@@ -104,19 +168,52 @@
 				<li><a href="#">{tag}</a></li>
 				{/each}
 			</ul>
-			<h1>{story.name}</h1>
-			<h4 id="story-client">{story.content.year} / {story.content.client}</h4>
+			<h1>{story.content.title}</h1>
 			<p id="story-summary">{story.content.summary}</p>
+			<div id="story-whenwherewhat">
+				<div>
+					<h4>Year</h4>
+					<span>{story.content.year}</span>
+				</div>
+				<div>
+					<h4>Client</h4>
+					<span>{story.content.client}</span>
+				</div>
+				<div>
+					<h4>Role</h4>
+					<span>{story.content.Role}</span>
+				</div>
+			</div>
 		</div>
 		<img id="story-leadimg" src="{story.content.lead_img}" alt="lead">
 	</div>
 </div>
 <div id="story-body">
-	{#each story.content.blocks as block}
-	<span class="{block.component}">
-		<svelte:component this={components[block.component]} content={block} />
-	</span>
-	{/each}
-
-	{@html marked(story.content.body)}
+	{#if "blocks" in story.content}
+		{#each story.content.blocks as block}
+			{#if block.component == "grid"}
+				<div class="grid" style="background:{block.background.color}">
+					<div class="gridContainer">
+						{#each block.columns as column}
+							<div class="gridColumn">
+								<svelte:component this={components[column.component]} content={column} />
+							</div>
+						{/each}
+					</div>
+				</div>
+			{:else if block.component == "section"}
+				<div class="contentSection" style="margin:{block.margin}; padding:{block.padding}">
+					{#each block.Content as content}
+						<svelte:component this={components[content.component]} content={content} />
+					{/each}
+				</div>
+			{:else}
+				<span class="{block.component}">
+					<svelte:component this={components[block.component]} content={block} />
+				</span>
+			{/if}
+		{/each}
+	{:else}
+		<p>This post is empty!</p>
+	{/if}
 </div>

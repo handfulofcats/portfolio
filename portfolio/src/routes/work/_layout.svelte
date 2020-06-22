@@ -1,9 +1,19 @@
 <script>
+	import { beforeUpdate, afterUpdate } from 'svelte';
+	import { stores } from '@sapper/app';
 	import Nav from '../../components/Nav.svelte';
 	import Footer from '../../components/Footer.svelte';
 	import { displaymenu } from '../../stores.js';
+	import NextPost from '../../components/NextPost.svelte';
 
 	export let segment;
+
+	const { page } = stores();
+	let { slug } = $page.params;
+
+	afterUpdate(() => {
+		slug = $page.params.slug;
+	});
 </script>
 
 <style lang="scss" global>
@@ -21,7 +31,7 @@
 		position: relative;
 		width: 100%;
 		background-color: white;
-		margin: 80px auto 96px auto;
+		margin: 0px auto 96px auto;
 		box-sizing: border-box;
 		flex: 1 0 auto;
 	}
@@ -30,15 +40,9 @@
 	}
 
 	@media (max-width:1200px) {
-		main {
-			padding: 0 32px;
-		}
 	}
 
 	@media (max-width:767px) {
-		main {
-			padding: 0 16px;
-		}
 	}
 </style>
 <div id="wrapper" class="{$displaymenu ? 'displaynav' : ''}">
@@ -46,5 +50,8 @@
 	<main>
 		<slot></slot>
 	</main>
+	<div id="thenextpost">
+		<NextPost currentSlug={slug}/>
+	</div>
 	<Footer/>
 </div>

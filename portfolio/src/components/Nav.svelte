@@ -12,14 +12,14 @@
 <style lang="scss">
 @import "./static/global.scss";
   nav {
-    border-bottom: 1px solid $vlight-gray;
+    //border-bottom: 1px solid $vlight-gray;
     font-weight: 300;
     position: static;
     width: 100%;
     z-index: 10;
     box-sizing: border-box;
     position: fixed;
-    background: #FFF;
+    //background: #FFF;
     height: 80px;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
@@ -29,7 +29,7 @@
 
   #homelink {
 	  font-family: archivo-black, sans-serif;
-	  font-size: 1.25em;
+	  font-size: 1em;
 	  letter-spacing: -0.2px;
   }
 
@@ -63,6 +63,7 @@
     justify-content: center;
     flex: 1 1 auto;
     transition: height 5.7s ease;
+    background: #FFF;
   }
 
   #fullscreen-nav  li {

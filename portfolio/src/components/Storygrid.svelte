@@ -1,5 +1,6 @@
 <script>
 export let stories;
+console.log(stories);
 </script>
 
 <style lang="scss">
@@ -70,7 +71,7 @@ a {
 
 #clientdate {
     color: rgba(255,255,255,0.8);
-    font-family: $arimo;
+    font-family: $aktiv;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 500;
