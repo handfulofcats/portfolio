@@ -110,16 +110,14 @@ blockquote p {
 
 .problemBlock h3, h3 {
 	font-family: aktiv-grotesk-extended;
-	font-size: 1.953em;
-	@media (max-width:$bp-sm) {
-		font-size: 1.563em;
-	}
+	font-size: 1.563em;
+	line-height: 1.5;
 	@media (max-width:$bp-xs) {
 		font-size: 1.25em;
 	}
-	letter-spacing: -1px;
+	letter-spacing: -0.8px;
 	font-weight: 400;
-	margin-bottom: 48px;
+	margin-bottom: 32px;
 }
 
 .problemBlock h4 {
@@ -129,6 +127,10 @@ blockquote p {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	margin-bottom: 32px;
+}
+
+.problemBlock p {
+	margin-bottom: 48px;
 }
 
 .problemBlock li {
@@ -143,4 +145,41 @@ blockquote p {
 	background-repeat: no-repeat;
 	background-size: 12px 12px;
 	background-position-y: 4px;
+}
+
+#story-body .product-attr {
+	flex-flow: column;
+	align-items: flex-start;
+
+	& h4 {
+		font-family: aktiv-grotesk-extended, sans-serif;
+		font-size: 1em;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 16px;
+	}
+
+	& p {
+		font-family: $aktiv;
+		font-size: 1em;
+		line-height: 1.4;
+		margin-top: 0;
+		margin-bottom: 16px;
+	}
+
+	& blockquote p {
+		margin-top: 0;
+		font-size: 0.8em;
+		color: $mid-gray;
+		font-style: italic;
+		font-weight: 400;
+		line-height: 1.5;
+	}
+}
+
+#imgcaption #caption p {
+	font-family: $aktiv;
+	font-size: 0.875em;
+	color: $mid-gray;
 }

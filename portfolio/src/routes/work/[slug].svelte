@@ -8,6 +8,7 @@
 	import ProblemBlock from '../../components/ProblemBlock.svelte';
     import ContentGrid from '../../components/ContentGrid.svelte';
 	import Image from '../../components/Image.svelte';
+	import ImgCaption from '../../components/ImgCaption.svelte';
 	import NextPost from '../../components/NextPost.svelte';
 
 
@@ -22,7 +23,9 @@
 		"markdown_text" : MarkdownText,
 		"grid" : ContentGrid,
 		"Image" : Image,
-		"problemblock": ProblemBlock
+		"problemblock": ProblemBlock,
+		"imgcaption" : ImgCaption,
+		"imgReel" : ImgReel
 	};
 </script>
 
@@ -208,7 +211,7 @@
 					{/each}
 				</div>
 			{:else}
-				<span class="{block.component}">
+				<span class="{block.component}{block.contentClass ? block.contentClass : ""}">
 					<svelte:component this={components[block.component]} content={block} />
 				</span>
 			{/if}

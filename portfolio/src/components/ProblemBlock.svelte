@@ -6,7 +6,7 @@
 @import '../../static/variables.scss';
 
 .problemBlock {
-    margin: 112px 0;
+    margin: 72px 0;
     position: relative;
 }
 .enumeration {

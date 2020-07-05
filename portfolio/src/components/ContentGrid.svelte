@@ -7,32 +7,37 @@
         "markdown_text" : MarkdownText,
         "Image" : Image
     };
+
+    const numOfCols = content.columns.length;
+    const colWidth = (100 / numOfCols);
+    console.log(numOfCols);
+    console.log(colWidth);
+
 </script>
 
-<style lang="scss">
-.gridContainer {
-    display:flex;
-    flex-wrap: wrap;
-    max-width: 1200px;
-	margin: 48px auto;
-}
-.gridColumn {
-    display:flex;
-    flex: 1 1 47%;
-    min-width: 300px;
-    justify-content: space-between;
-    align-items: center;
-}
-.gridColumn:first-child {
-    margin-right: 24px;
-}
-</style>
-
-<div class="gridContainer">
+<div class="gridContainer" style="--colWidth:{colWidth}px;">
     {#each content.columns as column}
-        <div class="gridColumn">
+        <div class="gridColumn {column.contentClass ? column.contentClass : ""}">
             <svelte:component this={components[column.component]} content={column} />
         </div>
     {/each}
 </div>
 
+<style lang="scss">
+    .gridContainer {
+        display:flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 48px auto; 
+    }
+    .gridColumn {
+        display:flex;
+        flex: 1 1 calc(var(--colWidth) - 24px);
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 24px;
+    }
+    .gridColumn:last-child {
+        margin-right: 0;
+    }
+</style>
