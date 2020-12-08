@@ -141,7 +141,7 @@ blockquote p {
 .problemBlock li {
 	display: inline-block;
 	padding-left: 24px;
-	background-image: url('../ac_asterisk.svg');
+	background-image: url('../UIelements/ac_asterisk.svg');
 	background-repeat: no-repeat;
 	background-size: 12px 12px;
 	background-position-y: 4px;
@@ -178,8 +178,34 @@ blockquote p {
 	}
 }
 
-#imgcaption #caption p {
+#story-body {
+	& li {
+		font-family: alegreya, serif;
+		font-size: 1.25em;
+		line-height: 2;
+		display: inline-block;
+		padding-left: 24px;
+		background-image: url('../UIelements/ac_asterisk.svg');
+		background-repeat: no-repeat;
+		background-size: 12px 12px;
+		background-position-y: 12px;
+		margin-bottom: 24px;
+	}
+
+	& p em {
+		font-style: normal;
+		font-weight: 600;
+	}
+}
+
+#imgcaption #caption p, #imgReel .caption p {
 	font-family: $aktiv;
 	font-size: 0.875em;
 	color: $mid-gray;
+}
+
+#imgReel .caption>p:first-child {
+	margin-top: 24px;
+	border-top: solid 6px #A2B0EC;
+	padding-top: 16px;
 }

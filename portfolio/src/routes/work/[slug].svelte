@@ -10,8 +10,7 @@
 	import Image from '../../components/Image.svelte';
 	import ImgCaption from '../../components/ImgCaption.svelte';
 	import NextPost from '../../components/NextPost.svelte';
-
-
+	import ImgReel from '../../components/ImgReel.svelte';
 
 	export async function preload (page, session) {
 		const { slug } = page.params;
@@ -25,7 +24,7 @@
 		"Image" : Image,
 		"problemblock": ProblemBlock,
 		"imgcaption" : ImgCaption,
-		"imgReel" : ImgReel
+		"imgreel" : ImgReel
 	};
 </script>
 
@@ -45,18 +44,41 @@
 <style lang="scss">
 @import "./static/blogstyles.scss";
 
+:root {
+	--headerBackgroundColor: #FFFFFF;
+}
+
+
 #story-headerarea {
-	width: 100%;
+	width: calc(100% - 48px);
 	padding-top: 152px;
 	box-sizing: border-box;
 	/* background: linear-gradient(180deg,#000 0%, #000 40%, rgba(255,255,255,1) 40%);*/
-	margin-bottom: 48px;
+	background: linear-gradient(180deg, var(--headerBackgroundColor) 0%, var(--headerBackgroundColor) 60%, rgba(255,255,255,1) 60%);
+	margin: 24px auto 48px auto;
+	border-radius: 4px;
+
+	@include md {
+		background: linear-gradient(180deg, var(--headerBackgroundColor) 0%, var(--headerBackgroundColor) 80%, rgba(255,255,255,1) 60%);
+	}
+
+	@include xs {
+		width: 100%;
+		margin: 0 auto 48px auto;
+		padding-top: 92px;
+		background: linear-gradient(180deg, var(--headerBackgroundColor) 0%, var(--headerBackgroundColor) 90%, rgba(255,255,255,1) 60%);
+	}
+
 }
 
 #header-content {
 	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
+
+	@include md {
+		width: 90%;
+	}
 }
 
 #story-leadimg {
@@ -65,6 +87,10 @@
 
 #story-title {
 	margin-bottom: 80px; 
+
+	@include xs {
+		margin-bottom: 56px;
+	}
 }
 
 #story-tags li {
@@ -95,16 +121,24 @@
 	font-weight: 300;
 	width: 85%;
 	color: $almost-black;
+	@include xs {
+		width: 100%;
+	}
 }
 
 #story-whenwherewhat {
 	display: flex;
 	width: 100%;
+	flex-wrap: wrap;
 }
 
 #story-whenwherewhat>div {
 	margin-right: 24px;
 	flex: 0 1 25%;
+
+	@include xs {
+		flex: 1 1 40%;
+	}
 }
 
 #story-whenwherewhat h4 {
@@ -163,7 +197,7 @@
 <svelte:head>
 	<title>{story.name}</title>
 </svelte:head>
-<div id="story-headerarea" style="{(story.content.color == "") ? "" : "background: linear-gradient(180deg, " + story.content.color.color + " 0%, " + story.content.color.color + " 60%, rgba(255,255,255,1) 60%);"}">
+<div id="story-headerarea" style="--headerBackgroundColor: {(story.content.color == "") ? "" : story.content.color.color};">
 	<div id="header-content">
 		<div id="story-title">
 			<ul id="story-tags">

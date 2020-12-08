@@ -3,6 +3,25 @@ $bp-xs: 414px;
 $bp-sm: 768px;
 $bp-md: 1279px;
 
+// Small devices
+@mixin xs {
+	@media (max-width: #{$bp-xs}) {
+		@content;
+	}
+}
+
+@mixin sm {
+	@media (max-width: #{$bp-sm}) {
+		@content;
+	}
+}
+
+@mixin md {
+	@media (max-width: #{$bp-md}) {
+		@content;
+	}
+}
+
 // Colors
 $cool-gray: #808080;
 $mid-gray: #666666;

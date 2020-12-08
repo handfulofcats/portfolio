@@ -23,6 +23,17 @@
     font-weight: 600;
     text-align: center;
     line-height: 48px;
+
+    @include sm {
+        position: static;
+        display: block;
+    }
+
+    @include xs {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+    }
 }
 </style>
 <div class="problemBlock">

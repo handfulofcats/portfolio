@@ -34,16 +34,30 @@
   }
 
   #navcontainer {
-    max-width: 1700px;
+    max-width: 1850px;
     display: flex;
     box-sizing: border-box;
 		justify-content: space-between;
 		align-items: center;
-		margin: 0 auto;
+		margin: 32px auto 0 auto;
     height: 80px;
     width: 100%;
     flex: 0 0 auto;
     padding: 0 48px;
+
+    @include md {
+      padding: 0 48px;
+    }
+
+    @include sm {
+      padding: 0 48px;
+    }
+
+    @include xs {
+      padding: 0 16px;
+      margin-top: 0px;
+    }
+
   }
 
   #fullscreen-nav ul {
@@ -130,18 +144,6 @@
     bottom: 40%;
     transform: rotate(-45deg) translateZ(0);
   }
-
-  @media (max-width:$bp-md) {
-		#navcontainer {
-			padding: 0 32px;
-		}
-	}
-
-	@media (max-width:$bp-sm) {
-		#navcontainer {
-			padding: 0 16px;
-		}
-	}
 </style>
 
 <nav class="{$displaymenu ? 'displaynav' : ''}">
