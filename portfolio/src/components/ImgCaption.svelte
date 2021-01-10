@@ -1,6 +1,7 @@
 <script>
     import { onMount, afterUpdate, createEventDispatcher } from 'svelte';
     import { breakpoint } from '../stores.js';
+    import { send, receive } from '../transitions.js';
     import Lightbox from './Lightbox.svelte';
     import marked from 'marked';
     export let content;
@@ -10,134 +11,45 @@
     let imgElement;
 
     let focusedView = false;
-    let windowWidth, windowHeight;
+
     let elementWidth, elementHeight;
-    let naturalWidth, naturalHeight;
-
-    let naturalScale, horizontalScale, verticalScale, calcScale;
-    let translateX, offsetX, translateY, offsetY;
-
-    onMount(() => {
-        //console.log("onmount values:", windowWidth, windowHeight, elementWidth, elementHeight, naturalWidth, naturalHeight, calcScale);
-    });
+    let preservedWidth = 0;
+    let preservedHeight = 0;
 
     function handleFocusedView(e) {
         if (focusedView) {
             focusedView = false;
         }
         else {
-            calcZoomScale();  
-            calcPosition();  
-            focusedView = true;          
+            preservedWidth = elementWidth;
+            preservedHeight = elementHeight;
+            focusedView = true;
         }
     }
- 
-    function calcZoomScale() {
-
-        naturalWidth = imgElement.naturalWidth;
-        naturalHeight = imgElement.naturalHeight;
-
-        let imageBounds;
-        console.log($breakpoint);
-        switch ($breakpoint) {
-            case "lg":
-                imageBounds = { x : 0.65, y : 0.95 };
-                break;
-            case "md":
-                imageBounds = { x : 0.7, y : 0.95 };
-                break;
-            case "sm":
-                imageBounds = { x : 0.95, y : 0.7 };
-                break;
-            case "xs":
-                imageBounds = { x : 0.95, y : 0.6 };
-                break;
-            default:
-                imageBounds = { x : 0.3, y : 0.3 };
-        }
-
-        naturalScale = (naturalWidth / elementWidth).toFixed(2);
-        horizontalScale =  ((windowWidth * imageBounds.x) / elementWidth).toFixed(2);
-        verticalScale = ((windowHeight * imageBounds.y) / elementHeight).toFixed(2);
-        
-        console.log(naturalScale, horizontalScale, verticalScale);
-
-        calcScale = Math.min(naturalScale, horizontalScale, verticalScale);
-    }
-
-    function calcPosition() {
-        let imgPos = imgElement.getBoundingClientRect();
-        console.log(imgPos);
-
-        let imageBounds;
-        console.log($breakpoint);
-        switch ($breakpoint) {
-            case "lg":
-                imageBounds = { x : 0.3, y : 0 };
-                break;
-            case "md":
-                imageBounds = { x : 0.3, y : 0 };
-                break;
-            case "sm":
-                imageBounds = { x : 0, y : 0.3 };
-                break;
-            case "xs":
-                imageBounds = { x : 0, y : 0.4 };
-                break;
-            default:
-                imageBounds = { x : 0, y : 0.3 };
-        }
-
-        let newWidth = imgPos.width * calcScale;
-        let newHeight = imgPos.height * calcScale;
-
-        let xDisplacement = (newWidth - imgPos.width) / 2; // equals the number of pixels the image has displaced left after being scaled
-        let yDisplacement = (newHeight - imgPos.height) / 2; // equals the number of pixels the image has displaced up after being scaled
-
-        translateX = ((imgPos.x - xDisplacement) / newWidth) * -100; // equals the X-pos of the scaled image (with no translation), expressed as a percentage relative to the width of the scaled image
-        translateY = ((imgPos.y - yDisplacement) / newHeight) * -100; // equals the Y-pos of the scaled image (with no translation), expressed as a percentage relative to the height of the scaled image
-
-        offsetX = ((((windowWidth - (windowWidth * imageBounds.x)) - newWidth) / 2) / newWidth) * 100;
-        offsetY = ((((windowHeight - (windowWidth * imageBounds.y)) - newHeight) / 2) / newHeight) * 100; // equals the difference by half between the scaled image height and the viewport height, expressed as a percentage relative to the height of the scaled image
-
-        translateX = offsetX + translateX;
-        translateY = offsetY + translateY; // adding these two percentages gives us the percentage value needed for TranslateY.
-
-        console.log("Final translation values", translateX, translateY);
-        console.log("viewportDimenstions", windowWidth, windowHeight);
-    }
-
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight}/>
-
-<div    id="imgcaption" 
-        class="{content.captionPlacement}" 
-        style="--maxImgContainerWidth:{content.maxWidth > 0 ? content.maxWidth + "px;" : '1300px'}; 
-        --focusedViewScale:{calcScale};
-        --focusedViewTranslateY:{translateY}%;
-        --focusedViewOffsetY:{offsetY}px;
-        --focusedViewTranslateX:{translateX}%;
-        --focusedViewOffsetX:{offsetX}px;">
+<div  id="imgcaption" class="{content.captionPlacement}" style="--preservedWidth: {preservedWidth}px; --preservedHeight: {preservedHeight}px;">
     <div class="imgcontainer" 
         class:focusedView="{focusedView}" 
         bind:clientWidth={elementWidth}
         bind:clientHeight={elementHeight}
         on:click={handleFocusedView}>
-        {#if isVideo}
-            <p>video</p>
-        {:else}
-            <img    class="asset" 
-                    class:focusedView="{focusedView}" 
-                    bind:this={imgElement}
-                    src="{content.image.filename}" alt="{content.image.alt}" />
-        {/if}  
+        {#if !focusedView}
+            {#if isVideo}
+                <p>video</p>
+            {:else}
+                <img    class="asset" 
+                        bind:this={imgElement}
+                        out:send="{{key: content.image.filename}}" in:receive="{{key: content.image.filename}}" 
+                        src="{content.image.filename}" alt="{content.image.alt}" />
+            {/if}  
+        {/if}
     </div>
     <span id="caption">
         {@html marked(content.caption)}
     </span>
     {#if focusedView}
-        <Lightbox caption={content.caption} bind:focusedView/>
+        <Lightbox imgSrc={content.image.filename} caption={content.caption} bind:focusedView/>
     {/if}
 </div>
 
@@ -156,7 +68,6 @@
     margin: 16px auto;
     display: flex;
     flex-wrap: wrap;
-    /*justify-content: space-between;*/
 
     & .imgcontainer {
         cursor: pointer;
@@ -167,6 +78,11 @@
             width: 100%;
             filter: drop-shadow(0 8px 33px rgba(0,0,0,0.1));
             transition: transform 0.5s ease;
+    }
+
+    & .imgcontainer .asset.shadow {
+        visibility: hidden;
+        transition: none;
     }
 
     &.right {
@@ -217,20 +133,10 @@
     
 }
 
-/*.imgcontainer.focusedView {
-    position: absolute;
-    width: 100vw; 
-    height: 100vh;
-    background-color: red;
-}*/
-
 .imgcontainer.focusedView {
     z-index: 13;
-}
-
-.asset.focusedView {
-    /*transform: scale(var(--focusedViewScale)) translate(var(--focusedViewTranslateX),var(--focusedViewTranslateY)) translate(var(--focusedViewOffsetX),var(--focusedViewOffsetY));*/
-    transform: scale(var(--focusedViewScale)) translate(var(--focusedViewTranslateX),var(--focusedViewTranslateY));
+    width: var(--preservedWidth);
+    height: var(--preservedHeight);
 }
 
 </style>

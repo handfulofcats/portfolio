@@ -1,4 +1,5 @@
-import { cubicIn } from 'svelte/easing';
+import { cubicIn, quintOut } from 'svelte/easing';
+import { crossfade } from 'svelte/transition';
 
 export function fadeSlide(node, {
     delay = 0,
@@ -19,3 +20,22 @@ export function fadeSlide(node, {
             `}
     }
 }
+
+const [send, receive] = crossfade({
+    duration: d => Math.sqrt(d * 300),
+    fallback(node, params) {
+        const style = getComputedStyle(node);
+        const transform = style.transform === 'none' ? '' : style.transform;
+
+        return {
+            duration: 600,
+            easing: cubicIn,
+            css: t => `
+                transform: ${transform} scale(${t});
+                opacity: ${t};
+            `
+        };
+    }
+});
+
+export {send, receive};
