@@ -1,4 +1,5 @@
 <script>
+    /* is this branch working */
     import { onMount, afterUpdate, createEventDispatcher } from 'svelte';
     import { breakpoint } from '../stores.js';
     import Lightbox from './Lightbox.svelte';
