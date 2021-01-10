@@ -29,7 +29,7 @@ const [send, receive] = crossfade({
 
         return {
             duration: 600,
-            easing: quintOut,
+            easing: cubicIn,
             css: t => `
                 transform: ${transform} scale(${t});
                 opacity: ${t};

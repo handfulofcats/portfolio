@@ -23,18 +23,23 @@ import marked from 'marked';
 </svelte:head>
 
 <div id="lightbox-bg" transition:fade="{{duration:200}}">
+    <div id="lightbox-imgcontainer">
+        <img id="lightbox-img" on:click={() => focusedView = !focusedView} src="{imgSrc}" out:send="{{key: imgSrc}}" in:receive="{{key: imgSrc}}">
+    </div>
+
+    <div id="lightbox-caption-area" transition:fadeSlide="{{duration: 400, impulse:100}}">
+        <button id="close-btn" on:click={() => focusedView = !focusedView}>Go back</button>
+        {@html marked(caption)}
+    </div>
 </div>
-<img id="lightbox-img" src="{imgSrc}">
-<div id="lightbox-caption-area" transition:fadeSlide="{{duration: 400, impulse:100}}">
-    <button id="close-btn" on:click={() => focusedView = !focusedView}>Go back</button>
-    {@html marked(caption)}
-</div>
+
 
 <style lang="scss">
 @import "./static/variables.scss";
 
 #lightbox-bg {
-    position: absolute;
+    position: fixed;
+    display: flex;
     background: rgba(255,255,255,0.7);
     top: 0;
     left: 0;
@@ -43,38 +48,49 @@ import marked from 'marked';
     overflow: hidden;
     z-index: 11;
     backdrop-filter: blur(3px);
+
+    @include sm {
+        flex-flow: column;
+    }
+
 }
 
-#lightbox-img {
-    position: fixed;
-    top: 0;
-    left: 0;
+#lightbox-imgcontainer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
     z-index: 14;
-    width: 800px;
+    flex: 0 1 70%;
+
+    & img {
+        max-width: 95%;
+        max-height: 95%;
+        align-self: center;
+    }
+
+    @include sm {
+        flex: 0 1 80%;
+        max-height: 80%;
+    }
+
+    @include xs {
+        flex: 0 1 70%;
+        max-height: 70%;
+    }
 }
 
 #lightbox-caption-area {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
-    width: 30%;
+    flex: 0 1 30%;
     background: #fff;
     border-left: solid 1px #ccc;
     z-index: 14;
     padding: 40px 24px;
 
-    @include md {
-        width: 30%;
-    }
-
     @include sm {
-        top: unset;
-        bottom: 0;
-        height: unset;
-        max-height: 20%;
-        width: 100vw;
+        flex: 0 1 20%;
+        width: 100%;
         padding: 24px;
         border-left: none;
         border-top: solid 1px #ccc;
@@ -82,7 +98,7 @@ import marked from 'marked';
     }
 
     @include xs {
-        max-height: 30%;
+        flex: 0 1 30%;
     }
 
     & #close-btn {
