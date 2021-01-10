@@ -10,8 +10,6 @@
 
     const numOfCols = content.columns.length;
     const colWidth = (100 / numOfCols);
-    console.log(numOfCols);
-    console.log(colWidth);
 
 </script>
 

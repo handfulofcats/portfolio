@@ -48,7 +48,6 @@
 	--headerBackgroundColor: #FFFFFF;
 }
 
-
 #story-headerarea {
 	width: calc(100% - 48px);
 	padding-top: 152px;
@@ -195,7 +194,7 @@
 </style>
 
 <svelte:head>
-	<title>{story.name}</title>
+	<title>{story.content.title} | Andrés Canelones</title>
 </svelte:head>
 <div id="story-headerarea" style="--headerBackgroundColor: {(story.content.color == "") ? "" : story.content.color.color};">
 	<div id="header-content">

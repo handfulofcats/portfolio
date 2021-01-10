@@ -91,8 +91,8 @@ code {
 }
 
 p {
-	font-family: alegreya, serif;
-	font-size: 1.25em;
+	font-family: aktiv-grotesk, sans-serif;
+	font-size: 1em;
 	line-height: 2;
 }
 
@@ -179,9 +179,12 @@ blockquote p {
 }
 
 #story-body {
+
+	color: $almost-black;
+
 	& li {
-		font-family: alegreya, serif;
-		font-size: 1.25em;
+		font-family: aktiv-grotesk, serif;
+		font-size: 1em;
 		line-height: 2;
 		display: inline-block;
 		padding-left: 24px;
@@ -208,4 +211,13 @@ blockquote p {
 	margin-top: 24px;
 	border-top: solid 6px #A2B0EC;
 	padding-top: 16px;
+}
+
+#lightbox-caption-area p {
+    @include u2;
+    font-family: $aktiv;
+}
+
+#lightbox-caption-area p:first-child {
+	margin-top: 0;
 }

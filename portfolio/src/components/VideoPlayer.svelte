@@ -39,10 +39,6 @@ function timeFormat(seconds) {
 
     return `${minutes}:${seconds}`;
 }
-
-console.log(duration);
-console.log(time);
-
 </script>
 
 <style lang="scss">
@@ -54,6 +50,8 @@ console.log(time);
 
 #videoPlayerContainer {
     position: relative;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 #videoAsset {
@@ -114,7 +112,7 @@ console.log(time);
         on:mouseout={handleVideoMouseout}
         on:click={handleVideoClick}>
     <video id="videoAsset" 
-        src="{videoURL}" 
+        src="{videoURL}#t=0.1" 
         type="video/mp4" 
         muted preload="auto"
         loop
