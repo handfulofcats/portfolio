@@ -1,10 +1,11 @@
 <script>
 export let caption;
 export let focusedView = true;
+export let imgSrc;
 
 import { onMount, onDestroy} from 'svelte';
 import { fade } from 'svelte/transition';
-import { fadeSlide } from '../transitions.js';
+import { fadeSlide, send, receive } from '../transitions.js';
 
 import marked from 'marked';
 
@@ -23,6 +24,7 @@ import marked from 'marked';
 
 <div id="lightbox-bg" transition:fade="{{duration:200}}">
 </div>
+<img id="lightbox-img" src="{imgSrc}">
 <div id="lightbox-caption-area" transition:fadeSlide="{{duration: 400, impulse:100}}">
     <button id="close-btn" on:click={() => focusedView = !focusedView}>Go back</button>
     {@html marked(caption)}
@@ -41,6 +43,14 @@ import marked from 'marked';
     overflow: hidden;
     z-index: 11;
     backdrop-filter: blur(3px);
+}
+
+#lightbox-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 14;
+    width: 800px;
 }
 
 #lightbox-caption-area {

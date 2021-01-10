@@ -1,5 +1,4 @@
 <script>
-    /* is this branch working */
     import { onMount, afterUpdate, createEventDispatcher } from 'svelte';
     import { breakpoint } from '../stores.js';
     import Lightbox from './Lightbox.svelte';
@@ -129,7 +128,6 @@
             <p>video</p>
         {:else}
             <img    class="asset" 
-                    class:focusedView="{focusedView}" 
                     bind:this={imgElement}
                     src="{content.image.filename}" alt="{content.image.alt}" />
         {/if}  
@@ -138,7 +136,7 @@
         {@html marked(content.caption)}
     </span>
     {#if focusedView}
-        <Lightbox caption={content.caption} bind:focusedView/>
+        <Lightbox imgSrc={content.image.filename} caption={content.caption} bind:focusedView/>
     {/if}
 </div>
 
