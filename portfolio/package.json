@@ -14,7 +14,7 @@
   "dependencies": {
     "compression": "^1.7.1",
     "flexboxgrid": "^6.3.1",
-    "marked": "^0.8.2",
+    "marked": "^4.0.10",
     "polka": "next",
     "sirv": "^0.4.6",
     "storyblok-js-client": "^2.5.1"
